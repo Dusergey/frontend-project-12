@@ -15,7 +15,6 @@ import {
   Button, Form,
 } from 'react-bootstrap';
 
-import Login from '../images/login.jpeg';
 import routes from '../routes';
 import useAuth from '../hooks/authHooks';
 
