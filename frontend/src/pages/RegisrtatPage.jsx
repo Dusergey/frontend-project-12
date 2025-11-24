@@ -7,7 +7,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
-import Registration from '../images/registrate.jpg';
 import useAuth from '../hooks/authHooks';
 import routes from '../routes';
 
