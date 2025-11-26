@@ -1,13 +1,20 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "Hexlet Chat project",
+  "description": "[![Actions Status](https://github.com/Dusergey/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/SemyonSt/frontend-project-12/actions)",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build --prefix frontend",
-    "start": "start-server -s ./frontend/build",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "cd frontend && npm ci"
+    "postinstall": "cd frontend && npm ci",
+
+    // 1) Собираем фронт во фронтенде
+    // 2) Копируем результат в корневую ./build, откуда читает @hexlet/chat-server
+    "build": "npm run build --prefix frontend && rm -rf ./build && cp -R ./frontend/build ./build",
+
+    // Для локального запуска (и для Playwright, если он дергает npm start)
+    "start": "start-server",
+
+    // Для локального прогона e2e, на CI эта команда и так уже вызывается напрямую
+    "test": "npx playwright test"
   },
   "repository": {
     "type": "git",
@@ -20,6 +27,15 @@
   },
   "homepage": "https://github.com/Dusergey/frontend-project-12#readme",
   "dependencies": {
-    "@hexlet/chat-server": "^1.1.6"
+    "@hexlet/chat-server": "^1.1.6",
+    "@fastify/jwt": "^5.0.0",
+    "@fastify/static": "^5.0.0",
+    "@rollbar/react": "^0.11.1",
+    "express": "^4.18.2",
+    "formik": "^2.2.9",
+    "lodash": "^4.17.21",
+    "rollbar": "^2.26.1",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1"
   }
 }
