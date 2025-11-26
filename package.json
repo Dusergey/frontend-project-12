@@ -6,14 +6,12 @@
   "scripts": {
     "postinstall": "cd frontend && npm ci",
 
-    // 1) Собираем фронт во фронтенде
-    // 2) Копируем результат в корневую ./build, откуда читает @hexlet/chat-server
     "build": "npm run build --prefix frontend && rm -rf ./build && cp -R ./frontend/build ./build",
 
-    // Для локального запуска (и для Playwright, если он дергает npm start)
+    
     "start": "start-server",
 
-    // Для локального прогона e2e, на CI эта команда и так уже вызывается напрямую
+
     "test": "npx playwright test"
   },
   "repository": {
