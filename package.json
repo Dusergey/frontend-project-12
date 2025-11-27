@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/nathalieMalsh/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/nathalieMalsh/frontend-project-12/actions)",
+  "description": "[![Actions Status](https://github.com/Dusergey/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Dusergey/frontend-project-12/actions)",
   "type": "module",
   "main": "src/index.js",
   "scripts": {
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nathalieMalsh/frontend-project-12.git"
+    "url": "git+https://github.com/Dusergey/frontend-project-12.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nathalieMalsh/frontend-project-12/issues"
+    "url": "https://github.com/Dusergey/frontend-project-12/issues"
   },
-  "homepage": "https://github.com/nathalieMalsh/frontend-project-12#readme",
+  "homepage": "https://github.com/Dusergey/frontend-project-12#readme",
   "dependencies": {
     "@hexlet/chat-server": "^2.0.4"
   }
