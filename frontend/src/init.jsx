@@ -1,71 +1,73 @@
-import { io } from 'socket.io-client';
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider as RollbalProvider } from '@rollbar/react';
-import filterWords from 'leo-profanity';
+import { Provider } from 'react-redux'
+import { io } from 'socket.io-client'
+import i18next from 'i18next'
+import { initReactI18next, I18nextProvider } from 'react-i18next'
+import { toast } from 'react-toastify'
+import filter from 'leo-profanity'
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react'
+import store from './store/store.js'
+import { addMessage } from './store/slices/messagesSlice.jsx'
+import { addChannel, removeChannel, renameChannel } from './store/slices/channelsSlice.jsx'
+import resources from './locales/ru.js'
+import App from './App.jsx'
 
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import i18next from 'i18next';
-import App from './App';
-
-import { actions as channelsActions } from './slices/channelsSlice';
-import { actions as messageActions } from './slices/messageSlice';
-import slice from './slices/index';
-import SocketProvider from './context/ApiProvider';
-
-import resources from './locales/index';
-
-const Init = () => {
-  i18next
-    .use(initReactI18next)
-    .use(LanguageDetector)
-    .init({
-      fallbackLng: 'ru',
-      resources,
-    });
-
-  const rollbarConfig = {
-    accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
-    payload: {
-      environment: 'production',
+i18next
+  .use(initReactI18next)
+  .init({
+    resources,
+    debug: false,
+    lng: 'ru',
+    fallbackLng: 'ru',
+    interpolation: {
+      escapeValue: false,
     },
-    captureUncaught: true,
-    captureUnhandledRejections: true,
-  };
+  })
 
-  filterWords.add(filterWords.getDictionary('en'));
-  filterWords.add(filterWords.getDictionary('ru'));
+filter.add(filter.getDictionary('ru'))
+filter.add(filter.getDictionary('en'))
 
-  const socket = io();
+const socket = io()
 
-  socket.on('newChannel', (payload) => {
-    slice.dispatch(channelsActions.addChannel(payload));
-  });
+socket.on('connect', () => {
+  console.log('Соединение с сервером установлено')
+})
 
-  socket.on('removeChannel', (payload) => {
-    slice.dispatch(channelsActions.removeChannel(payload));
-  });
+socket.on('disconnect', () => {
+  console.log('Соединение с сервером потеряно')
+  toast.error(i18next.t('errors.server'))
+})
 
-  socket.on('renameChannel', (payload) => {
-    slice.dispatch(channelsActions.renameChannel(payload));
-  });
+socket.on('newMessage', (payload) => {
+  store.dispatch(addMessage(payload))
+})
 
-  socket.on('newMessage', (payload) => {
-    slice.dispatch(messageActions.addMessage(payload));
-  });
+socket.on('newChannel', (payload) => {
+  store.dispatch(addChannel(payload))
+})
 
-  return (
-    <React.StrictMode>
-      <BrowserRouter>
-        <RollbalProvider config={rollbarConfig}>
-          <SocketProvider socket={socket}>
-            <App />
-          </SocketProvider>
-        </RollbalProvider>
-      </BrowserRouter>
-    </React.StrictMode>
-  );
-};
+socket.on('removeChannel', (payload) => {
+  store.dispatch(removeChannel(payload.id))
+})
 
-export default Init;
+socket.on('renameChannel', (payload) => {
+  store.dispatch(renameChannel(payload))
+})
+
+const rollbarConfig = {
+  accessToken: 'abdfc76d83a941f9940b1b5b1ac34bcacee5bc9abdbe6ad496a102764fe8c1853bdbf5340b0dccbaf6d5fea565a12fd5',
+  environment: 'development',
+}
+
+const init = () => (
+  <Provider store={store}>
+    <I18nextProvider i18n={i18next}>
+      <RollbarProvider config={rollbarConfig}>
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
+      </RollbarProvider>
+    </I18nextProvider>
+  </Provider>
+)
+
+export default init
