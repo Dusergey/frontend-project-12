@@ -1,22 +1,21 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { ErrorBoundary } from '@rollbar/react';
-
-import AuthProvider from './context/AuthProvider';
-
-import Main from './pages/Main';
-
-import store from './slices/index';
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import MainPage from './pages/MainPage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import SignUp from './pages/SignUpPage.jsx'
+import NotFoundPage from './pages/NotFoundPage.jsx'
 
 const App = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+    <ToastContainer position="top-right" autoClose={5000} />
+  </BrowserRouter>
+)
 
-  <ErrorBoundary>
-    <Provider store={store}>
-      <AuthProvider>
-        <Main />
-      </AuthProvider>
-    </Provider>
-  </ErrorBoundary>
-
-);
-export default App;
+export default App
