@@ -43,7 +43,6 @@ const Chat = () => {
       setInputValue('')
     }
     catch (error) {
-      console.log(error.message)
     }
   }
 
