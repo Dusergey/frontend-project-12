@@ -25,7 +25,7 @@ const LoginForm = () => {
       setAuthError(false)
       navigate('/')
     }
-    catch (error) {
+    catch {
       setAuthError(true)
     }
 
