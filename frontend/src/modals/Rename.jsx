@@ -21,7 +21,7 @@ const Rename = ({ modalInfo, onHide }) => {
       axios.patch(`${routes.channelsPath()}/${modalInfo.item.id}`, { name }, { headers: { Authorization: `Bearer ${token}` } })
       toast.success(t('toast.renameChannel'))
     }
-    catch (error) {
+    catch {
       toast.error(t('errors.toastRenameChannel'))
     }
     setSubmitting(false)
