@@ -32,7 +32,6 @@ const SignUpForm = () => {
       if (error.status === 409) {
         setUsernameTaken(true)
       }
-      console.log(error.message)
     }
 
     setSubmitting(false)
