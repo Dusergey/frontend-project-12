@@ -23,7 +23,7 @@ const Add = ({ onHide, setCurrentChannelId }) => {
       setCurrentChannelId(newChannel.id)
       toast.success(t('toast.addChannel'))
     }
-    catch (error) {
+    catch {
       toast.error(t('errors.toastAddChannel'))
     }
     setSubmitting(false)
