@@ -22,7 +22,6 @@ const Rename = ({ modalInfo, onHide }) => {
       toast.success(t('toast.renameChannel'))
     }
     catch (error) {
-      console.log(error.message)
       toast.error(t('errors.toastRenameChannel'))
     }
     setSubmitting(false)
