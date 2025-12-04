@@ -23,7 +23,7 @@ const Remove = ({ modalInfo, onHide, setCurrentChannelId }) => {
       onHide()
       toast.success(t('toast.removeChannel'))
     }
-    catch (error) {
+    catch {
       toast.error(t('errors.toastRemoveChannel'))
     }
     setRemoving(false)
