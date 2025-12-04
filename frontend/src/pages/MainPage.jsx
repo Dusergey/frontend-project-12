@@ -33,11 +33,9 @@ const MainPage = () => {
       catch (error) {
         if (error.status === 401) {
           navigate('/login')
-          console.log(error.message)
           toast.error(t('errors.authError'))
         }
         else {
-          console.log(error.message)
           toast.error(t('errors.loadDataError'))
         }
       }
