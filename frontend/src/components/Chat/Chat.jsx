@@ -42,7 +42,8 @@ const Chat = () => {
       axios.post(routes.addMessagePath(), newMessage, { headers: { Authorization: `Bearer ${token}` } })
       setInputValue('')
     }
-    catch (error) {
+    catch {
+      // Ошибка игнорируется по условиям проекта
     }
   }
 
